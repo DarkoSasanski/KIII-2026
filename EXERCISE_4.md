@@ -157,6 +157,10 @@ jobs:
         run: bandit -r app.py
 ```
 
+> **Важна напомена:** GitHub Actions секој job го извршува на **свеж, празен виртуелен сервер**. Затоа секој job мора да почне со `actions/checkout@v4` — без него серверот нема ништо, ни твојот код. 
+>
+>Исто така, `actions/setup-python@v5` инсталира точно определена Python верзија наместо да се потпира на она што случајно е инсталирано на серверот.
+
 Две алатки:
 
 **hadolint** — линтер за Dockerfile. Проверува дали Dockerfile следи best practices:
@@ -216,6 +220,8 @@ push → lint (hadolint + bandit)
 ❌ Ако lint fail-ува → build-push се прескокнува, DockerHub не се ажурира.
 
 ✅ Ако lint помине → image се билда и push-ува.
+
+> **Дискусија:** Какви грешки можат да се појават при developement?
 
 > **Дискусија:** Зошто е важно да не push-уваме image ако security scan fail-ува?
 
