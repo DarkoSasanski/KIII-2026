@@ -61,6 +61,21 @@ def create_item():
     return jsonify({"id": new_id, "name": name, "description": description}), 201
 
 
+@app.route("/items/name/<string:name>", methods=["GET"])
+def get_item_by_name(name):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, name, description FROM items WHERE name = %s;", (name,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if row is None:
+        return jsonify({"error": "item not found"}), 404
+
+    return jsonify({"id": row[0], "name": row[1], "description": row[2]}), 200
+
+
 @app.route("/items", methods=["GET"])
 def get_items():
     conn = get_connection()
