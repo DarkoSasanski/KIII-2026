@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres
+  namespace: flask-app
+  labels:
+    app: postgres
+spec:
+  containers:
+    - name: postgres
+      image: postgres:16.1
+      ports:
+        - containerPort: 5432
+      env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: secret
+        - name: POSTGRES_DB
+          value: labdb
+

@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Image version tag (e.g. 1.0, 2.0)'
+        required: true
 
 jobs:
   lint:
@@ -48,4 +53,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-lab:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/flask-lab:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/flask-lab:${{ github.event.inputs.version || github.sha }}

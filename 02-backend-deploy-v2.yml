@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend
+  namespace: flask-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: flask-backend
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 300
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: flask-backend
+    spec:
+      containers:
+        - name: flask-backend
+          image: dsasanski/flask-lab:2.0    # <<==== only line that changed
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: db
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: labdb
+            - name: DB_USER
+              value: admin
+            - name: DB_PASSWORD
+              value: secret
+
