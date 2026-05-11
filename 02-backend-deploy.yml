@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: flask-backend
-          image: dsasanski/flask-lab:1.0    # <<==== change this to your image
+          image: dsasanski/flask-lab:2d93a98f83601d6f330341ee351c703349a39451
           ports:
             - containerPort: 5000
           env:

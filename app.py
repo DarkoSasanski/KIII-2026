@@ -8,7 +8,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-APP_VERSION = "1.0"
+APP_VERSION = "2.0"
 APP_NAME = "flask-lab"
 DB_UNAVAILABLE_RESPONSE = ({"message": "Database not available"}, 503)
 
